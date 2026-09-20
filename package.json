@@ -1,0 +1,11 @@
+{
+  "name": "dante-demo",
+  "version": "0.1.0",
+  "description": "Dante 데모용 장바구니 계산 샘플",
+  "type": "module",
+  "main": "src/cart.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
