@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "description": "Dante 데모용 장바구니 계산 샘플",
   "type": "module",
-  "main": "src/cart.js",
+  "main": "src/cart.ts",
   "scripts": {
-    "test": "node --test"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
   },
   "license": "MIT"
 }

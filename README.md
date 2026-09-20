@@ -7,8 +7,8 @@ Dante 데모용 저장소입니다. Dante 에이전트를 GitHub 저장소에 �
 
 장바구니 결제 금액을 계산하는 작은 모듈입니다.
 
-- `src/cart.js` — 합계·배송비·쿠폰 할인 계산
-- `test/cart.test.js` — Node 내장 테스트 러너 기반 테스트
+- `src/cart.ts` — 합계·배송비·쿠폰 할인 계산
+- `src/cart.test.ts` — vitest 기반 테스트
 
 ## 금액 정책
 
@@ -20,7 +20,9 @@ Dante 데모용 저장소입니다. Dante 에이전트를 GitHub 저장소에 �
 ## 실행
 
 ```bash
+npm ci
 npm test
+npm run typecheck
 ```
 
 ## 브랜치

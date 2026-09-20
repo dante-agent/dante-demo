@@ -8,34 +8,37 @@
 export const SHIPPING_FEE = 3000;
 export const FREE_SHIPPING_THRESHOLD = 50000;
 
-/**
- * 상품 목록의 합계를 구한다.
- * @param {Array<{price: number, quantity: number}>} items
- * @returns {number}
- */
-export function calculateSubtotal(items) {
+export interface CartItem {
+  price: number;
+  quantity: number;
+}
+
+export type Coupon =
+  | { type: 'percent'; value: number }
+  | { type: 'amount'; value: number };
+
+export interface CartTotal {
+  subtotal: number;
+  discount: number;
+  shipping: number;
+  total: number;
+}
+
+/** 상품 목록의 합계를 구한다. */
+export function calculateSubtotal(items: CartItem[]): number {
   return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
 
-/**
- * 상품 금액에 따른 배송비를 구한다.
- * @param {number} subtotal
- * @returns {number}
- */
-export function calculateShipping(subtotal) {
+/** 상품 금액에 따른 배송비를 구한다. */
+export function calculateShipping(subtotal: number): number {
   if (subtotal > FREE_SHIPPING_THRESHOLD) {
     return 0;
   }
   return SHIPPING_FEE;
 }
 
-/**
- * 쿠폰 할인액을 구한다. 할인액은 상품 금액을 넘지 않는다.
- * @param {number} subtotal
- * @param {{type: 'percent'|'amount', value: number}} [coupon]
- * @returns {number}
- */
-export function calculateDiscount(subtotal, coupon) {
+/** 쿠폰 할인액을 구한다. 할인액은 상품 금액을 넘지 않는다. */
+export function calculateDiscount(subtotal: number, coupon?: Coupon): number {
   if (!coupon) {
     return 0;
   }
@@ -46,13 +49,8 @@ export function calculateDiscount(subtotal, coupon) {
   return Math.min(raw, subtotal);
 }
 
-/**
- * 최종 결제 금액을 구한다.
- * @param {Array<{price: number, quantity: number}>} items
- * @param {{type: 'percent'|'amount', value: number}} [coupon]
- * @returns {{subtotal: number, discount: number, shipping: number, total: number}}
- */
-export function calculateTotal(items, coupon) {
+/** 최종 결제 금액을 구한다. */
+export function calculateTotal(items: CartItem[], coupon?: Coupon): CartTotal {
   const subtotal = calculateSubtotal(items);
   const discount = calculateDiscount(subtotal, coupon);
   const shipping = calculateShipping(subtotal);
