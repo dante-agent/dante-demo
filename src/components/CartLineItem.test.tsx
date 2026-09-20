@@ -19,6 +19,22 @@ describe('CartLineItem', () => {
     expect(screen.getByText('3개')).toBeInTheDocument();
   });
 
+  it('수량이 2개 이상이면 단가를 같이 보여준다', () => {
+    renderLine();
+
+    expect(screen.getByTestId('unit-price')).toHaveTextContent('개당 14,000원');
+  });
+
+  it('수량이 1개면 단가를 보여주지 않는다', () => {
+    render(
+      <ul>
+        <CartLineItem item={{ name: '드립 서버', price: 14000, quantity: 1 }} />
+      </ul>,
+    );
+
+    expect(screen.queryByTestId('unit-price')).toBeNull();
+  });
+
   it('수량을 곱한 줄 합계를 보여준다', () => {
     renderLine();
 
