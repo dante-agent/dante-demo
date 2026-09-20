@@ -31,7 +31,7 @@ export function calculateSubtotal(items: CartItem[]): number {
 
 /** 상품 금액에 따른 배송비를 구한다. */
 export function calculateShipping(subtotal: number): number {
-  if (subtotal > FREE_SHIPPING_THRESHOLD) {
+  if (subtotal >= FREE_SHIPPING_THRESHOLD) {
     return 0;
   }
   return SHIPPING_FEE;
