@@ -5,10 +5,13 @@ Dante 데모용 저장소입니다. Dante 에이전트를 GitHub 저장소에 �
 
 ## 샘플 코드
 
-장바구니 결제 금액을 계산하는 작은 모듈입니다.
+장바구니 결제 금액을 보여주는 작은 React 화면입니다.
 
-- `src/cart.ts` — 합계·배송비·쿠폰 할인 계산
-- `src/cart.test.ts` — vitest 기반 테스트
+- `src/components/CartSummary.tsx` — 상품 합계·쿠폰 할인·배송비를 계산해 결제 예정 금액을 보여준다
+- `src/components/CartLineItem.tsx` — 장바구니 한 줄
+- `src/App.tsx` — 샘플 장바구니를 담은 데모 화면
+- `src/cart.ts` — 금액 상수와 순수 계산 함수
+- `src/**/*.test.tsx` — vitest + Testing Library 기반 테스트
 
 ## 금액 정책
 

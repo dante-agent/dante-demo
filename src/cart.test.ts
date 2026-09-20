@@ -1,13 +1,16 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  FREE_SHIPPING_THRESHOLD,
-  SHIPPING_FEE,
   calculateDiscount,
-  calculateShipping,
   calculateSubtotal,
-  calculateTotal,
+  formatWon,
+  type CartItem,
 } from './cart';
+
+const ITEMS: CartItem[] = [
+  { name: '원두', price: 12000, quantity: 2 },
+  { name: '필터', price: 5500, quantity: 3 },
+];
 
 describe('calculateSubtotal', () => {
   it('빈 장바구니는 0원이다', () => {
@@ -15,26 +18,7 @@ describe('calculateSubtotal', () => {
   });
 
   it('수량을 반영해 합계를 구한다', () => {
-    expect(
-      calculateSubtotal([
-        { price: 12000, quantity: 2 },
-        { price: 5500, quantity: 3 },
-      ]),
-    ).toBe(40500);
-  });
-});
-
-describe('calculateShipping', () => {
-  it('기준 미만이면 배송비를 부과한다', () => {
-    expect(calculateShipping(49999)).toBe(SHIPPING_FEE);
-  });
-
-  it('기준 금액과 정확히 같으면 무료배송이다', () => {
-    expect(calculateShipping(FREE_SHIPPING_THRESHOLD)).toBe(0);
-  });
-
-  it('기준을 넘으면 무료배송이다', () => {
-    expect(calculateShipping(50001)).toBe(0);
+    expect(calculateSubtotal(ITEMS)).toBe(40500);
   });
 });
 
@@ -52,21 +36,9 @@ describe('calculateDiscount', () => {
   });
 });
 
-describe('calculateTotal', () => {
-  it('할인과 배송비를 모두 반영한다', () => {
-    expect(
-      calculateTotal([{ price: 10000, quantity: 2 }], { type: 'amount', value: 2000 }),
-    ).toEqual({
-      subtotal: 20000,
-      discount: 2000,
-      shipping: SHIPPING_FEE,
-      total: 21000,
-    });
-  });
-
-  it('상품 금액이 무료배송 기준과 같으면 배송비가 붙지 않는다', () => {
-    const result = calculateTotal([{ price: 25000, quantity: 2 }]);
-    expect(result.shipping).toBe(0);
-    expect(result.total).toBe(50000);
+describe('formatWon', () => {
+  it('세 자리마다 쉼표를 넣는다', () => {
+    expect(formatWon(50000)).toBe('50,000원');
+    expect(formatWon(0)).toBe('0원');
   });
 });
