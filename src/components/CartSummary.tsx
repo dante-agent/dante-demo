@@ -22,7 +22,7 @@ export interface CartSummaryProps {
 export function CartSummary({ items, coupon }: CartSummaryProps) {
   const subtotal = calculateSubtotal(items);
   const discount = calculateDiscount(subtotal, coupon);
-  const isFreeShipping = subtotal > FREE_SHIPPING_THRESHOLD;
+  const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
   const shipping = isFreeShipping ? 0 : SHIPPING_FEE;
   const total = subtotal - discount + shipping;
 
