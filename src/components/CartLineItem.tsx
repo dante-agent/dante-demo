@@ -12,6 +12,11 @@ export function CartLineItem({ item }: CartLineItemProps) {
     <li className="cart-line-item">
       <span className="cart-line-item__name">{item.name}</span>
       <span className="cart-line-item__quantity">{item.quantity}개</span>
+      {item.quantity > 1 && (
+        <span className="cart-line-item__unit" data-testid="unit-price">
+          개당 {formatWon(item.price)}
+        </span>
+      )}
       <span className="cart-line-item__amount" data-testid="line-total">
         {formatWon(lineTotal)}
       </span>
